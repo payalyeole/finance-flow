@@ -4,6 +4,8 @@ A full-stack finance dashboard system built with **Spring Boot** (backend) and *
 
 ---
 
+<img width="1919" height="916" alt="image" src="https://github.com/user-attachments/assets/c67eefdf-95a4-4b72-b60f-8f6282fb5303" />
+
 ## Tech Stack
 
 | Layer        | Technology                            |
