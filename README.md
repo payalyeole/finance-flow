@@ -19,6 +19,11 @@ A full-stack finance dashboard system built with **Spring Boot** (backend) and *
 
 
 <img width="1919" height="916" alt="image" src="https://github.com/user-attachments/assets/c67eefdf-95a4-4b72-b60f-8f6282fb5303" />
+<img width="1910" height="919" alt="image" src="https://github.com/user-attachments/assets/335fb8ad-b671-4724-b120-8f8f87dd1360" />
+<img width="1907" height="908" alt="image" src="https://github.com/user-attachments/assets/c9b7021a-a394-4d0e-8ad8-2841bb408fbe" />
+<img width="1919" height="918" alt="image" src="https://github.com/user-attachments/assets/0aa96a9b-39e6-4f16-9677-412f8ae3fc48" />
+
+
 
 ## Tech Stack
 
