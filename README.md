@@ -15,8 +15,6 @@ A full-stack finance dashboard system built with **Spring Boot** (backend) and *
 [![React](https://img.shields.io/badge/React_18-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://react.dev)
 [![JWT](https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=JSON%20web%20tokens&logoColor=white)](https://jwt.io)
 
-[🚀 Live Demo](https://financeflow.vercel.app) • [📖 API Docs](https://your-backend.up.railway.app/swagger-ui.html) • [⭐ Star this repo](#)
-
 </div>
 
 
