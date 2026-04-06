@@ -4,6 +4,22 @@ A full-stack finance dashboard system built with **Spring Boot** (backend) and *
 
 ---
 
+<div align="center">
+
+# 💹 FinanceFlow
+
+**A full-stack finance dashboard with role-based access control**
+
+[![Java](https://img.shields.io/badge/Java_17-ED8B00?style=for-the-badge&logo=java&logoColor=white)](https://java.com)
+[![Spring Boot](https://img.shields.io/badge/Spring_Boot_3.2-6DB33F?style=for-the-badge&logo=spring&logoColor=white)](https://spring.io)
+[![React](https://img.shields.io/badge/React_18-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://react.dev)
+[![JWT](https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=JSON%20web%20tokens&logoColor=white)](https://jwt.io)
+
+[🚀 Live Demo](https://financeflow.vercel.app) • [📖 API Docs](https://your-backend.up.railway.app/swagger-ui.html) • [⭐ Star this repo](#)
+
+</div>
+
+
 <img width="1919" height="916" alt="image" src="https://github.com/user-attachments/assets/c67eefdf-95a4-4b72-b60f-8f6282fb5303" />
 
 ## Tech Stack
