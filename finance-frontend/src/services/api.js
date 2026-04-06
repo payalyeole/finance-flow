@@ -1,8 +1,14 @@
 import axios from 'axios';
 
-const API_BASE = 'http://localhost:8080/api';
+const API_BASE = process.env.REACT_APP_API_URL || 'http://localhost:8080/api';
 
-const api = axios.create({ baseURL: API_BASE });
+const cache = new Map();
+const CACHE_TIME = 30000; // 30 seconds
+
+const api = axios.create({
+  baseURL: API_BASE,
+  timeout: 10000, // 10 sec
+});
 
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('token');
@@ -22,34 +28,89 @@ api.interceptors.response.use(
   }
 );
 
+// Cache helper - GET requests cache 
+async function cachedGet(url, params = {}) {
+  const key = url + JSON.stringify(params);
+  const cached = cache.get(key);
+
+  if (cached && Date.now() - cached.time < CACHE_TIME) {
+    return cached.data;
+  }
+
+  const res = await api.get(url, { params });
+  cache.set(key, { data: res, time: Date.now() });
+  return res;
+}
+
+export function clearCache(pattern) {
+  if (!pattern) {
+    cache.clear();
+    return;
+  }
+  for (const key of cache.keys()) {
+    if (key.includes(pattern)) cache.delete(key);
+  }
+}
+
 // Auth
 export const authAPI = {
   login: (data) => api.post('/auth/login', data),
 };
 
-// Dashboard
+// Dashboard - cached
 export const dashboardAPI = {
   getSummary: (recentLimit = 10, trendMonths = 6) =>
-    api.get(`/dashboard/summary?recentLimit=${recentLimit}&trendMonths=${trendMonths}`),
+    cachedGet('/dashboard/summary', { recentLimit, trendMonths }),
 };
 
 // Transactions
 export const transactionAPI = {
-  getAll: (params) => api.get('/transactions', { params }),
-  getById: (id) => api.get(`/transactions/${id}`),
-  create: (data) => api.post('/transactions', data),
-  update: (id, data) => api.put(`/transactions/${id}`, data),
-  delete: (id) => api.delete(`/transactions/${id}`),
+  getAll: (params) => cachedGet('/transactions', params),
+  getById: (id) => cachedGet(`/transactions/${id}`),
+  create: async (data) => {
+    const res = await api.post('/transactions', data);
+    clearCache('/transactions');
+    clearCache('/dashboard');
+    return res;
+  },
+  update: async (id, data) => {
+    const res = await api.put(`/transactions/${id}`, data);
+    clearCache('/transactions');
+    clearCache('/dashboard');
+    return res;
+  },
+  delete: async (id) => {
+    const res = await api.delete(`/transactions/${id}`);
+    clearCache('/transactions');
+    clearCache('/dashboard');
+    return res;
+  },
 };
 
 // Users
 export const userAPI = {
-  getAll: () => api.get('/users'),
-  getById: (id) => api.get(`/users/${id}`),
-  create: (data) => api.post('/users', data),
-  update: (id, data) => api.put(`/users/${id}`, data),
-  toggleStatus: (id) => api.patch(`/users/${id}/toggle-status`),
-  delete: (id) => api.delete(`/users/${id}`),
+  getAll: () => cachedGet('/users'),
+  getById: (id) => cachedGet(`/users/${id}`),
+  create: async (data) => {
+    const res = await api.post('/users', data);
+    clearCache('/users');
+    return res;
+  },
+  update: async (id, data) => {
+    const res = await api.put(`/users/${id}`, data);
+    clearCache('/users');
+    return res;
+  },
+  toggleStatus: async (id) => {
+    const res = await api.patch(`/users/${id}/toggle-status`);
+    clearCache('/users');
+    return res;
+  },
+  delete: async (id) => {
+    const res = await api.delete(`/users/${id}`);
+    clearCache('/users');
+    return res;
+  },
 };
 
 export default api;
